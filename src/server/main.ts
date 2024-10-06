@@ -225,6 +225,11 @@ app.get("/docs", async (req: express.Request, res: express.Response) => {
     }
 })
 
+app.post('/addRoster', async (req: express.Request, res: express.Response) => {
+    const school = req.body;
+    await schools.insertOne( school )
+})
+
 app.post( '/add', async (req: express.Request,res: express.Response) => {
     const matchData = req.body;
     const schools = [

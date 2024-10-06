@@ -2,6 +2,7 @@ import "./App.css";
 
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Login from "./pages/login";
+import Roster from "./pages/roster"
 import A4Logic from "./pages/a4-logic";
 import Header from "./components/header";
 import Home from "./pages/Home";
@@ -20,6 +21,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/game-submission" element={<GameSubmission />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/roster" element={<Roster />} />
                     <Route path="/brackets" element={<Brackets/>}/>
                     <Route  path="/a4-logic" element={<A4Logic />} />
 
