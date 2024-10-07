@@ -3,7 +3,7 @@ import {VideoTutorial} from './VideoTutorial';
 
 const HeroSection: React.FC = () => {
     return (
-        <div className="p-5 flex justify-center flex-col items-center">
+        <div className="p-5 flex justify-center flex-col items-center hero w-full">
             <h2 className="text-[#1E6837] text-center font-roboto text-[24px] font-bold mb-2">
                 First Featherfest?
             </h2>
