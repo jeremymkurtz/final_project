@@ -2,11 +2,11 @@ import RosterForm from "../components/RosterForm";
 import RosterTable from "../components/RosterTable";
 
 function Roster() {
-    const roster = false
+    const hasRoster = true
 
     return (
         <>
-            {roster ? <RosterTable/> : <RosterForm/>}
+            {hasRoster ? <RosterTable/> : <RosterForm/>}
         </>
     )
 }
