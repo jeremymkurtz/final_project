@@ -93,9 +93,9 @@ function RosterForm() {
 
     return (
         <div className="flex justify-center">
-            <form id="rosterForm" className="text-xl w-min">
+            <form id="rosterForm" className="text-xl">
                 <h1 className="text-4xl text-center">Welcome Coach!</h1><br/>
-                <p className="text-center">You currently do not have a roster. Please create one below.</p><br/>
+                <p className="text-2xl text-center">You currently do not have a roster.<br/>Please create one below.</p><br/>
                 <div className="grid grid-cols-[auto,auto] gap-2">
                     <div className="flex items-center col-[1]">
                         <label className="w-32">School Name</label>
