@@ -1,13 +1,13 @@
 import "./App.css";
 
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import Login from "./pages/login";
-import A4Logic from "./pages/a4-logic";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from "./components/header";
-import Home from "./pages/Home";
+import A4Logic from "./pages/a4-logic";
 import GameSubmission from "./pages/GameSubmission";
+import Home from "./pages/Home";
+import Login from "./pages/login";
 
-import Dashboard from "./pages/dashboard";
+import "./App.css";
 import Brackets from "./pages/Brackets";
 
 function App() {
