@@ -16,7 +16,7 @@ function RosterForm() {
                        type="text" placeholder="Last Name" required/>
             </div>
         );
-    }
+    };
 
     const [playersHTML, setPlayersHTML] = useState<JSX.Element[]>(() => {
         const init = [];
@@ -27,36 +27,37 @@ function RosterForm() {
     });
 
     const addRemovePlayerHTML = (option: string) => {
-        const addRemoveIds = ["removePlayer", "addPlayer"]
+        const addRemoveIds = ["removePlayer", "addPlayer"];
         let optionNum;
         let playerNum;
 
         if(option == "add") {
-            optionNum = 1
-            playerNum = playersHTML.length + 1
+            optionNum = 1;
+            playerNum = playersHTML.length + 1;
             setPlayersHTML([...playersHTML, playerHTML(playerNum)]);
         }
         else if(option == "remove") {
-            optionNum = 0
-            playerNum = playersHTML.length - 1
-            playersHTML.pop()
+            optionNum = 0;
+            playerNum = playersHTML.length - 1;
+            playersHTML.pop();
             setPlayersHTML([...playersHTML]);
         }
 
         document.getElementById("submitRoster").style.gridRow = (playerNum) + "/" + (playerNum + 2);
 
         if(playerNum == (13 - optionNum * 4)) {
-            document.getElementById(addRemoveIds[1 - optionNum]).style.display = "block"
-            document.getElementById(addRemoveIds[optionNum]).style.width = "160px"
+            document.getElementById(addRemoveIds[1 - optionNum]).style.display = "block";
+            document.getElementById(addRemoveIds[optionNum]).style.width = "160px";
         }
         else if(playerNum == (8 + optionNum * 6)) {
-            document.getElementById(addRemoveIds[optionNum]).style.display = "none"
-            document.getElementById(addRemoveIds[1 - optionNum]).style.width = "328px"
+            document.getElementById(addRemoveIds[optionNum]).style.display = "none";
+            document.getElementById(addRemoveIds[1 - optionNum]).style.width = "328px";
         }
-    }
+    };
 
     const submitRoster = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
+
         const school: School = {
             coach: "",
             name: (document.getElementById("schoolName") as HTMLInputElement).value,
@@ -81,14 +82,14 @@ function RosterForm() {
         }
 
         const body = JSON.stringify(school);
-        console.log(body)
+        console.log(body);
 
         await fetch( '/addRoster', {
             method:'POST',
             headers: { 'Content-Type': 'application/json' },
             body
         })
-    }
+    };
 
     return (
         <div className="flex justify-center">
