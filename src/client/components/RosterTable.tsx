@@ -17,10 +17,10 @@ function RosterTable() {
 
     return (
         <div className="flex justify-center">
-            <div className="text-2xl">
+            <div>
                 <h1 className="text-4xl text-center">Welcome Coach!</h1><br/>
-                <p className="text-center text-3xl">Your pool score is <span className="text-[rgb(30,104,55)]">0</span></p><br/>
-                <table>
+                <p className="text-center text-3xl">Your pool score is <span className="text-[rgb(33,68,121)] font-bold">0</span>.</p><br/>
+                <table className="text-2xl">
                     <tr className="bg-[rgb(11,161,214)] text-white">
                         <th className={styleTable} colSpan="2">School Name</th>
                     </tr>
