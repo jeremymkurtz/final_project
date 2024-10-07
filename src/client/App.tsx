@@ -2,7 +2,7 @@ import "./App.css";
 
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Login from "./pages/login";
-import Roster from "./pages/roster"
+import Roster from "./pages/Roster"
 import A4Logic from "./pages/a4-logic";
 import Header from "./components/header";
 import Home from "./pages/Home";
