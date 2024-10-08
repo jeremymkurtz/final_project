@@ -56,7 +56,7 @@ export default function Login(): ReactElement {
     const navigate = useNavigate();
 
     return (
-        <div className="flex-vertical container">
+        <div className="flex-vertical container min-w-full">
             <form className="m-auto">
                 <h1 className="sm:text-mg lg:text-xl p-3 m-auto mt-3 text-center">Login or Create New Account</h1>
                 <div className="field m-auto w-3/4">
