@@ -1,28 +1,36 @@
 import React from 'react';
 import RoundRobin from '../components/RoundRobin';
+import { School } from '../../types/school';
 
-const group1 = [
-    { name: 'Sanburg', short: 'SAN', points: 0, logo: '/src/client/assets/sanburg.png' },
-    { name: 'Andrew', short: 'AND', points: 2, logo: '/src/client/assets/andrew.png' },
-    { name: 'New Trier', short: 'NT', points: 3, logo: '/src/client/assets/newtrier.png' },
-    { name: 'Downers Grove North', short: 'DGN', points: 4, logo: '/src/client/assets/downersgrovenorth.png' },
-    { name: 'Fremd', short: 'FR', points: 5, logo: '/src/client/assets/fremd.png' },
-];
 
-const group2 = [
-    { name: 'Hinsdale South', short: 'HS', points: 3, logo: '/src/client/assets/hinsdale.png' },
-    { name: 'Lockport', short: 'LT', points: 1, logo: '/src/client/assets/lockport.png' },
-    { name: 'Naperville North', short: 'NN', points: 5, logo: '/src/client/assets/napervillenorth.png' },
-    { name: 'Deerfield', short: 'DF', points: 2, logo: '/src/client/assets/deerfield.png' },
-    { name: 'York', short: 'YK', points: 4, logo: '/src/client/assets/york.png' },
-];
+export default function RoundRobinPage() {
 
-const RoundRobinPage: React.FC = () => {
+
+    const [groupA, setGroupA] = React.useState<School[]>([]);
+    const [groupB, setGroupB] = React.useState<School[]>([]);
+    const fetchSchools = async () => {
+        const response = await fetch('/schools', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        });
+        const jsonData = await response.json();
+        jsonData.forEach((school: School) => {
+        if (school.pool === 'A') {
+            setGroupA((prevGroupA) => [...prevGroupA, school]);
+        } else if (school.pool === 'B') {
+            setGroupB((prevGroupB) => [...prevGroupB, school]);
+        }
+});
+    }
+
+
+
+
+
     return (
         <div>
-            <RoundRobin group1={group1} group2={group2} />
+            <RoundRobin poolA={groupA} poolB={groupB} />
         </div>
     );
 };
 
-export default RoundRobinPage;
