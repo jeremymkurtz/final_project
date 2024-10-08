@@ -3,6 +3,7 @@ import Banner from '../components/Banner';
 import HeroSection from '../components/HeroSection';
 import Aside from '../components/Aside';
 
+
 export default function Home() {
     return (
         <div className={"flex gap-6 relative p-4"}>

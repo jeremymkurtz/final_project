@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
-import logo from '../assets/logo.png';
-import menuIcon from '../assets/menu-icon.png';
-import closeIcon from '../assets/close-icon.png';
+import React, { useState } from 'react';
+import logo from '../assets/Header/logo.png';
+import menuIcon from '../assets/Header/menu-icon.png';
+import closeIcon from '../assets/Header/close-icon.png';
+
 
 const Header: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);

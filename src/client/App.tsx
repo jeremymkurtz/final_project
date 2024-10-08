@@ -6,6 +6,7 @@ import A4Logic from "./pages/a4-logic";
 import GameSubmission from "./pages/GameSubmission";
 import Home from "./pages/Home";
 import Login from "./pages/login";
+import RoundRobinPage from './pages/RoundRobinPage';
 
 import "./App.css";
 import Brackets from "./pages/Brackets";
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/game-submission" element={<GameSubmission />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/brackets" element={<Brackets/>}/>
+                    <Route path="/round-robin" element={<RoundRobinPage />} />
                     <Route path="/a4-logic" element={<A4Logic />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                 </Routes>
