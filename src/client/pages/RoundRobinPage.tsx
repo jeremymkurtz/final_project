@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import RoundRobin from '../components/RoundRobin';
 import { School } from '../../types/school';
 
@@ -22,11 +22,9 @@ export default function RoundRobinPage() {
         }
 });
     }
-
-
-
-
-
+    useEffect(() => {
+        fetchSchools();
+    }, []);
     return (
         <div>
             <RoundRobin poolA={groupA} poolB={groupB} />
