@@ -3,6 +3,7 @@ import logo from '../assets/Header/logo.png';
 import menuIcon from '../assets/Header/menu-icon.png';
 import closeIcon from '../assets/Header/close-icon.png';
 
+
 const Header: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -14,7 +15,7 @@ const Header: React.FC = () => {
         <header className="bg-white py-5 px-2 flex justify-between items-center relative">
             <div className="text-white text-lg font-bold flex items-center gap-2">
                 <a href="/">
-                    <img src={logo} alt="Feathefest" />
+                    <img src={logo} alt="Feathefest"/>
                 </a>
                 <div className="hidden md:flex items-center space-x-4">
                     <h1 className="font-inter text-[24px] font-bold leading-normal">
@@ -37,7 +38,7 @@ const Header: React.FC = () => {
             </div>
 
             <div className="text-white cursor-pointer md:hidden" onClick={toggleMenu}>
-                <img src={isMenuOpen ? closeIcon : menuIcon} className="w-13" alt="menu icon" />
+                <img src={isMenuOpen ? closeIcon : menuIcon} className="w-13" alt="menu icon"/>
             </div>
 
             <nav className="hidden md:flex space-x-4">
@@ -53,10 +54,14 @@ const Header: React.FC = () => {
                 <a href="/brackets" className="p-2 text-black hover:text-blue-600">
                     Brackets
                 </a>
+                <a href="/login" className="p-2 text-black hover:text-blue-600">
+                    Login
+                </a>
             </nav>
 
             {isMenuOpen && (
-                <nav className="absolute top-[100px] right-0 w-full bg-white shadow-lg text-black flex flex-col items-center z-10 md:hidden">
+                <nav
+                    className="absolute top-[100px] right-0 w-full bg-white shadow-lg text-black flex flex-col items-center z-10 md:hidden">
                     <a href="/" className="p-2 hover:bg-blue-600 w-full text-center text-black">
                         Home
                     </a>
@@ -77,6 +82,9 @@ const Header: React.FC = () => {
                         className="p-2 hover:bg-blue-600 w-full text-center text-black"
                     >
                         Brackets
+                    </a>
+                    <a href="/login" className="p-2 hover:bg-blue-600 w-full text-center text-black">
+                        Login
                     </a>
                 </nav>
             )}
