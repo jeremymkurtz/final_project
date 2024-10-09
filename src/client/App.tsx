@@ -1,15 +1,15 @@
 import "./App.css";
 
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import Login from "./pages/login";
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Roster from "./pages/Roster"
-import A4Logic from "./pages/a4-logic";
 import Header from "./components/header";
-import Home from "./pages/Home";
+import A4Logic from "./pages/a4-logic";
 import GameSubmission from "./pages/GameSubmission";
+import Home from "./pages/Home";
+import Login from "./pages/login";
 
-import Dashboard from "./pages/dashboard";
 import Brackets from "./pages/Brackets";
+import DashboardS from "./pages/Dashboard-s";
 
 function App() {
 
@@ -24,7 +24,7 @@ function App() {
                     <Route path="/roster" element={<Roster />} />
                     <Route path="/brackets" element={<Brackets/>}/>
                     <Route  path="/a4-logic" element={<A4Logic />} />
-
+                    <Route  path="/dashboard" element={<DashboardS />} />
                 </Routes>
             </BrowserRouter>
 

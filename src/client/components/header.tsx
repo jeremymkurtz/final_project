@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import closeIcon from '../assets/close-icon.png';
 import logo from '../assets/logo.png';
 import menuIcon from '../assets/menu-icon.png';
-import closeIcon from '../assets/close-icon.png';
 
 const Header: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -52,6 +52,9 @@ const Header: React.FC = () => {
                 </a>
                 <a href="/brackets" className="p-2 text-black hover:text-blue-600">
                     Brackets
+                </a>
+                <a href="/dashboard" className="p-2 text-black hover:text-blue-600">
+                    Dashboard
                 </a>
             </nav>
 
