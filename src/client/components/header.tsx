@@ -1,9 +1,26 @@
-import React, { useState } from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import closeIcon from '../assets/close-icon.png';
 import logo from '../assets/logo.png';
 import menuIcon from '../assets/menu-icon.png';
+import RosterForm from "./RosterForm";
+import RosterTable from "./RosterTable";
 
 const Header: React.FC = () => {
+
+    const [userType, setUserType] = useState("user");
+
+    useLayoutEffect(() => {
+        const getUserType = async () => {
+            const response = await fetch("/getUserType", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            });
+            const data = await response.json();
+            setUserType(data);
+        }
+        getUserType();
+    }, []);
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -44,6 +61,9 @@ const Header: React.FC = () => {
                 <a href="/" className="p-2 text-black hover:text-blue-600">
                     Home
                 </a>
+                {userType === "coach" ? <a href="/roster" className="p-2 text-black hover:text-blue-600">
+                    Roster
+                </a> : <></>}
                 <a href="/game-submission" className="p-2 text-black hover:text-blue-600">
                     Game Submission
                 </a>
