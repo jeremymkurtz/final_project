@@ -9,6 +9,7 @@ import Login from "./pages/login";
 
 import Brackets from "./pages/Brackets";
 import DashboardS from "./pages/Dashboard-s";
+import RoundRobinPage from "./pages/RoundRobinPage";
 
 function App() {
 
@@ -19,10 +20,11 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/game-submission" element={<GameSubmission />} />
+                    <Route path="/round-robin" element={<RoundRobinPage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/brackets" element={<Brackets/>}/>
-                    <Route  path="/a4-logic" element={<A4Logic />} />
-                    <Route  path="/dashboard" element={<DashboardS />} />
+                    <Route path="/a4-logic" element={<A4Logic />} />
+                    <Route path="/dashboard" element={<DashboardS />} />
                 </Routes>
             </BrowserRouter>
 
