@@ -6,25 +6,26 @@ function Roster() {
 
     const [rosterPage, setRosterPage] = useState(<></>);
 
-    useLayoutEffect(() => {
-        const check = async () => {
-            const verifyCoach = await fetch("/getCoach", {
+    const check = async () => {
+        const verifyCoach = await fetch("/getCoach", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+        });
+        const coach = await verifyCoach.json();
+        if (coach === 'Unauthorized') {
+            setRosterPage(<>ERROR 401 UNAUTHORIZED</>);
+        }
+        else {
+            const response = await fetch("/getSchoolData", {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
             });
-            const coach = await verifyCoach.json();
-            if (coach === 'Unauthorized') {
-                setRosterPage(<>ERROR 401 UNAUTHORIZED</>);
-            }
-            else {
-                const response = await fetch("/getSchoolData", {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" }
-                });
-                const data = await response.json();
-                setRosterPage(data == null ? <RosterForm setRosterPage={setRosterPage} coach={coach}/> : <RosterTable schoolData={data}/>);
-            }
+            const data = await response.json();
+            setRosterPage(data == null ? <RosterForm setRosterPage={setRosterPage} coach={coach}/> : <RosterTable schoolData={data}/>);
         }
+    }
+
+    useLayoutEffect(() => {
         check();
     }, []);
 
