@@ -21,7 +21,9 @@ async function loginFunc(event: React.MouseEvent<HTMLButtonElement>, navigate: R
         console.log(response.status);
         if (response.status === 200) {
             alert("Login Successful");
+            localStorage.setItem('user', input.user.value);
             navigate('/dashboard');
+            window.location.reload();   // update the header
         } else {
             alert("Login failed");
         }
