@@ -9,7 +9,7 @@ export default function (props : {round?: string, className?: string, children?:
         }
     }
     return (
-        <div className={(props.className ? " " + props.className : "") + gap +" flex flex-col justify-center"}>
+        <div className={(props.className ? " " + props.className : "") + gap +" flex flex-col justify-center me-4"}>
             {props.children}
         </div>
     )
