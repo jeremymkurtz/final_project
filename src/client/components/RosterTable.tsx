@@ -1,35 +1,52 @@
-function RosterTable() {
-    const styleTable = "border-2 border-[rgb(33,68,121)] text-center w-fit py-1 px-4";
-    const getPlayers = () => {
-        const players = [];
+import {JSX, useState} from "react";
 
-        for(let i = 0; i <= 7; i++) {
-            players[i] = (
-                <tr className={i % 2 == 0 ? "bg-[rgb(222,235,255)]" : ""}>
-                    <td className={styleTable}>ABC{i + 1}</td>
-                    <td className={styleTable}>Player {i + 1}</td>
+function RosterTable({schoolData}) {
+
+    const styleTable = "border-2 border-[rgb(33,68,121)] text-center w-fit py-1 px-8";
+
+    const getPlayersTable = () => {
+
+        const playersTable = [];
+
+        for(let i = 0; i < schoolData.players.length; i++) {
+            playersTable[i] = (
+                <tr key={i + 1} className={i % 2 == 0 ? "bg-[rgb(222,235,255)]" : ""}>
+                    <td className={styleTable}>{schoolData.players[i].abbr}</td>
+                    <td className={styleTable}>{schoolData.players[i].fName + " " + schoolData.players[i].lName}</td>
                 </tr>
             )
         }
-
-        return players;
+        return playersTable;
     }
+
+    const [playersTable, setPlayersTable] = useState<JSX.Element[]>(() => {
+        return getPlayersTable()
+    });
 
     return (
         <div className="flex justify-center">
-            <div>
-                <h1 className="text-4xl text-center">Welcome Coach!</h1><br/>
-                <p className="text-center text-3xl">Your pool score is <span className="text-[rgb(33,68,121)] font-bold">0</span>.</p><br/>
-                <table className="text-2xl">
-                    <tr className="bg-[rgb(11,161,214)] text-white">
-                        <th className={styleTable} colSpan="2">School Name</th>
-                    </tr>
-                    <tr className="bg-[rgb(112,146,196)] text-white">
-                        <th className={styleTable}>Acronym</th>
-                        <th className={styleTable}>Player Names</th>
-                    </tr>
-                    {getPlayers()}
-                </table>
+            <div><br/>
+                <h1 className="text-center text-4xl">Here is your current roster<br/>Coach <span className="font-bold">{schoolData.coach}</span>.</h1><br/>
+                <p className="text-center text-3xl">Your pool score is <span className="font-bold">{schoolData.points}</span>.</p><br/>
+                <div className="flex justify-center">
+                    <table className="text-2xl">
+                        <tr className="bg-[rgb(11,161,214)] text-white">
+                            <th className={styleTable} colSpan="2">{schoolData.name}</th>
+                        </tr>
+                        <tr className="bg-[rgb(112,146,196)] text-white">
+                            <th className={styleTable}>Acronym</th>
+                            <th className={styleTable}>Player Names</th>
+                        </tr>
+                        {playersTable}
+                        <tr>
+                            <th colSpan="2">
+                                {schoolData.players.length < 14 ? <button id="addToRoster" type="button"
+                                        className="bg-[rgb(33,68,121)] text-white p-2 mt-2 w-full rounded-md">+ Add Player To Roster
+                                </button> : <></>}
+                            </th>
+                        </tr>
+                    </table>
+                </div><br/>
             </div>
         </div>
     );
