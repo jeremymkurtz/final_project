@@ -1,20 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import closeIcon from '../assets/close-icon.png';
 import logo from '../assets/logo.png';
 import menuIcon from '../assets/menu-icon.png';
 
 const Header: React.FC = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [ isMenuOpen, setIsMenuOpen ] = useState(false);
+    const [ isLoggedIn, setIsLoggedIn ] = useState(localStorage.getItem('user'));
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
+    useEffect(() => {
+        const handleStorageChange = () => {
+            setIsLoggedIn(localStorage.getItem('user'));
+        }
+        window.addEventListener('storage', handleStorageChange);
+        // return () => {
+        //     window.removeEventListener('storage', handleStorageChange);
+        // }
+    }, []);
+
     return (
         <header className="bg-white py-5 px-2 flex justify-between items-center relative">
             <div className="text-white text-lg font-bold flex items-center gap-2">
                 <a href="/">
-                    <img src={logo} alt="Feathefest" />
+                    <img src={logo} alt="Feathefest"/>
                 </a>
                 <div className="hidden md:flex items-center space-x-4">
                     <h1 className="font-inter text-[24px] font-bold leading-normal">
@@ -37,7 +48,7 @@ const Header: React.FC = () => {
             </div>
 
             <div className="text-white cursor-pointer md:hidden" onClick={toggleMenu}>
-                <img src={isMenuOpen ? closeIcon : menuIcon} className="w-13" alt="menu icon" />
+                <img src={isMenuOpen ? closeIcon : menuIcon} className="w-13" alt="menu icon"/>
             </div>
 
             <nav className="hidden md:flex space-x-4">
@@ -53,13 +64,20 @@ const Header: React.FC = () => {
                 <a href="/brackets" className="p-2 text-black hover:text-blue-600">
                     Brackets
                 </a>
-                <a href="/dashboard" className="p-2 text-black hover:text-blue-600">
-                    Dashboard
-                </a>
+                {isLoggedIn ? (
+                    <a href="/dashboard" className="p-2 text-black hover:text-blue-600">
+                        Dashboard
+                    </a>
+                ) : (
+                    <a href="/login" className="p-2 text-black hover:text-blue-600">
+                        Login
+                    </a>
+                )}
             </nav>
 
             {isMenuOpen && (
-                <nav className="absolute top-[100px] right-0 w-full bg-white shadow-lg text-black flex flex-col items-center z-10 md:hidden">
+                <nav
+                    className="absolute top-[100px] right-0 w-full bg-white shadow-lg text-black flex flex-col items-center z-10 md:hidden">
                     <a href="/" className="p-2 hover:bg-blue-600 w-full text-center text-black">
                         Home
                     </a>
@@ -81,6 +99,21 @@ const Header: React.FC = () => {
                     >
                         Brackets
                     </a>
+                    {isLoggedIn ? (
+                        <a
+                            href="/dashboard"
+                            className="p-2 hover:bg-blue-600 w-full text-center text-black"
+                        >
+                            Dashboard
+                        </a>
+                    ) : (
+                        <a
+                            href="/login"
+                            className="p-2 hover:bg-blue-600 w-full text-center text-black"
+                        >
+                            Login
+                        </a>
+                    )}
                 </nav>
             )}
         </header>
