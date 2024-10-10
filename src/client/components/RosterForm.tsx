@@ -63,7 +63,7 @@ function RosterForm({setRosterPage, coach}) {
         event.preventDefault();
         const checkEmpty = /[^ ]/;
         const checkName = /[^a-zA-Z-'. ]/;
-        const checkAbbr = /[^a-zA-Z]/;
+        const checkAbbr = /[^A-Z]/;
 
         const school: School = {
             coach: coach,
@@ -71,7 +71,9 @@ function RosterForm({setRosterPage, coach}) {
             abbr: (document.getElementById("abbreviation") as HTMLInputElement).value,
             players: [],
             points: 0,
-            pool: ""
+            pool: "",
+            bracket: 0,
+            seed: ""
         };
 
         if(!checkEmpty.test(school.name)) {
@@ -85,31 +87,28 @@ function RosterForm({setRosterPage, coach}) {
             return alert("School Abbreviation has no input.");
         }
         else if(checkAbbr.test(school.abbr)) {
-            return alert("School Abbreviation has invalid characters.");
+            return alert("School Abbreviation must only contain uppercase letters.");
         }
         else if(school.abbr.length < 2) {
             return alert("School Abbreviation must be at least two characters long.");
-        }
-        else {
-            school.abbr = school.abbr.toUpperCase();
         }
 
         for(let i = 0; i < playersHTML.length; i++) {
             school.players[i] = {
                 fName: (document.getElementById("player" + (i + 1) + "fn") as HTMLInputElement).value,
                 lName: (document.getElementById("player" + (i + 1) + "ln") as HTMLInputElement).value,
-                abbr: (document.getElementById("abbreviation") as HTMLInputElement).value + (i + 1)
+                abbr: school.abbr + (i + 1)
             };
 
             if(!checkEmpty.test(school.players[i].fName)) {
-                return alert("Player " + (i + 1) + "'s first name has no input.")
+                return alert("Player " + (i + 1) + "'s first name has no input.");
             }
             else if(checkName.test(school.players[i].fName)) {
                 return alert("Player " + (i + 1) + "'s first name has invalid characters.");
             }
 
             if(!checkEmpty.test(school.players[i].lName)) {
-                return alert("Player " + (i + 1) + "'s last name has no input.")
+                return alert("Player " + (i + 1) + "'s last name has no input.");
             }
             else if(checkName.test(school.players[i].lName)) {
                 return alert("Player " + (i + 1) + "'s last name has invalid characters.");
@@ -153,12 +152,11 @@ function RosterForm({setRosterPage, coach}) {
                 </div>
                 <div className="text-white flex ml-[88px] mt-2">
                     <button id="removePlayer" type="button"
-                            className="bg-[rgb(102,29,29)] w-40 ml-2 py-1 rounded-lg font-bold text-lg"
-                            style={{display: "none"}}
+                            className="bg-[rgb(102,29,29)] w-40 ml-2 py-1 rounded-lg font-bold text-lg hidden"
                             onClick={() => {addRemovePlayerHTML("remove")}}>- Remove Player
                     </button>
                     <button id="addPlayer" type="button"
-                            className="bg-[rgb(30,104,55)] w-[328px] ml-2 py-1 rounded-lg font-bold text-lg"
+                            className="bg-[rgb(30,104,55)] w-[328px] ml-2 py-1 rounded-lg font-bold text-lg block"
                             onClick={() => {addRemovePlayerHTML("add")}}>+ Add Player
                     </button>
                 </div><br/>

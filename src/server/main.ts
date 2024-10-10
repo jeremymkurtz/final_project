@@ -248,9 +248,17 @@ app.get("/docs", async (req: express.Request, res: express.Response) => {
     }
 })
 
+app.post('/addPlayer', async (req: express.Request, res: express.Response) => {
+    const player = req.body;
+    const abbr = player.abbr.slice(0, 3);
+    const school = await schools.findOne({abbr: abbr});
+    school.players.push(player);
+    await schools.replaceOne({abbr: abbr}, school);
+})
+
 app.post('/addSchool', async (req: express.Request, res: express.Response) => {
     const school = req.body;
-    await schools.insertOne( school )
+    await schools.insertOne(school)
 })
 
 app.get('/getSchoolData', async (req: express.Request, res: express.Response) => {
