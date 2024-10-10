@@ -1,32 +1,4 @@
-# Final Project
-*Due October 10th by 11:59 AM*
-
-For your final project, you'll implement a web application that exhibits understanding of the course materials. 
-This project should provide an opportunity to both be creative and to pursue individual research and learning goals.
-
-## General description
-Your project should consist of a complete Web application, exhibiting facets of the three main sections of the course material:
-
-- Static web page content and design. You should have a project that is accessible, easily navigable, and features significant content.
-- Dynamic behavior implemented with JavaScript (TypeScript is also allowed if your group wants to explore it).
-- Server-side programming *using Node.js*. Typically this will take the form of some sort of persistent data (database), authentication, and possibly server-side computation.
-- A video (less than five minutes) where each group member explains some aspect of the project. An easy way to produce this video is for you all the groups members to join a Zoom call that is recorded; each member can share their screen when they discuss the project or one member can "drive" the interface while other members narrate (this second option will probably work better.) The video should be posted on YouTube or some other accessible video hosting service. Make sure your video is less than five minutes, but long enough to successfully  explain your project and show it in action. There is no minimum video length.
-
-## Project ideation
-Excellent projects typically serve someone/some group; for this assignment you need to define your users and stakeholders. I encourage you to identify projects that will have impact, either artistically, politically, or in terms of productivity. 
-
-### Deliverables
-
-#### Form Team (due 9/12)
-Students are will work in teams of 3-5 students for the project; teams of two can be approved with the permission of the instructor. Working in teams should help enable you to build a good project in a limited amount of time.  Use the `#project-logistics` channel in Discord to pitch ideas for final projects and/or find fellow team members as needed.
-
-Teams must be in place by end of day on Thursday, September 12th. If you have not identified a team at this point, you will be assigned a team. 
-
-#### Proposal (due 9/22 by end of day) 
-Provide an outline of your project direction and the names of associated team members. 
-The outline should have enough detail so that staff can determine if it meets the minimum expectations, or if it goes too far to be reasonable by the deadline. Please include a general description of a project, and list of key technologies/libraries you plan on using (e.g. React, Three.js, Svelte, TypeScript etc.). Two to four paragraphs should provide enough level of detail. Name the file proposal.md and submit a pull request by Friday, September 20th at 11:59 PM (end of day). *Only one pull request is required per team*.
-
-You will be given some class time to work on your proposal, but please plan on reserving additional time outside of class as needed. There are no other scheduled checkpoints for your project besides the final submission. 
+# Featherfest App
 
 #### Turning in Your Project
 Submit a second PR on the final project repo to turn in your app and code. Again, only one pull request per team.
@@ -35,15 +7,30 @@ Deploy your app, in the form of a webpage, to Glitch/Heroku/Digital Ocean or som
 
 The README for your second pull request should contain:
 
-1. A brief description of what you created, and a link to the project itself (two paragraphs of text)
-2. Any additional instructions that might be needed to fully use your project (login information etc.)
+
+## General description
+#### A brief description of what you created, and a link to the project itself (two paragraphs of text) 
+
+The Featherfest application target users are players and administrators of the fetharefest tournament. See this [spreadsheet](https://docs.google.com/spreadsheets/d/1xY_97RSohWpRhs2Pl82CX-zxPfdYPViR-zOnRO4sN2Q/edit?gid=737066836#gid=737066836) as how the model of the torunamnet is played. As players submit to the web application other parts of the website will be updated including: round robin page, bracket page and dashboard page. 
+The round robin page, displays the points won during round robin stage in each team's respective pools. Later on deciding their seeding based on performance. 
+The bracket page, after the round robin stage is over(total round robin points across all teams is 30) the bracket will be updated with teams being seeded. Players then can submit for elimination or bracket stage. Lastly the dashboard page, ... **SKYLER?**
+
+Prior to the tournament, **HENRY?**
+
+
+2. Any additional instructions that might be needed to fully use your project (login information etc.) **HENRY?**
 3. An outline of the technologies you used and how you used them.
+- We used tailwind to design our application. We chose tailwind instead of another CSS framework for its flexibility and accessibility.
+- We used React for our front-end instead of angular due to our team's prior experience with React within Software Engineering. We used React's useState to store data on the page along with useEffect to keep the data updated.
+- We chose mongoDB for our database due to its flexibility, having 3 total collections: users(login-info), teams(schools), and matches.
+- We used Node.js and express for our server. We used express to create our server and handle requests.
 4. What challenges you faced in completing the project.
+- One challenge we faced was the implementation of the bracket page as it is only used after the round robin stage. We had to figure out how to update the bracket page after the round robin stage was over. 
 5. What each group member was responsible for designing / developing.
+- Jeremy was responsible for the game submission page and the bracket page. Jeremy additionally was responsible for the backend/frontend logic of round robin and bracket page.
+- ChenXi was responsible for the implementation fo the round robin page.
+- **Alden** was responsible for the backend implementation of looking up players and **...**
 6. A link to your project video.
+[Video](https://www.youtube.com/)
 
 Think of 1,3, and 4 in particular in a similar vein to the design / tech achievements for A1—A4… make a case for why what you did was challenging and why your implementation deserves a grade of 100%.
-
-## FAQs
-
-- **Can I use XYZ framework?** You can use any web-based frameworks or tools available, but for your server programming you need to use Node.js. Your client-side scripting language should be either JavaScript or TypeScript. While the course staff is happy to help with frameworks used in the class, we can't guarantee we'll be able to assist you with other frameworks / databases; choose carefully!
