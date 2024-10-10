@@ -6,7 +6,7 @@ function RosterTable({schoolData}) {
 
     const tableRow = (rowNum) => {
         return (
-            <tr key={rowNum} className={rowNum % 2 == 1 ? "bg-[rgb(222,235,255)]" : ""}>
+            <tr key={rowNum + 1} className={rowNum % 2 == 0 ? "bg-[rgb(222,235,255)]" : ""}>
                 <td className={styleTable}>{schoolData.players[rowNum].abbr}</td>
                 <td className={styleTable}>{schoolData.players[rowNum].fName + " " + schoolData.players[rowNum].lName}</td>
             </tr>
@@ -16,7 +16,7 @@ function RosterTable({schoolData}) {
     const [playersTable, setPlayersTable] = useState<JSX.Element[]>(() => {
         const init = [];
         for (let i = 0; i < schoolData.players.length; i++) {
-            init[i] = tableRow(i + 1);
+            init[i] = tableRow(i);
         }
         return init;
     });
