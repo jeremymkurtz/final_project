@@ -130,10 +130,14 @@ app.get('/getStartBracket', async (req: express.Request, res: express.Response) 
     try {
         const allSchools = await schools.find({}).toArray();
         const totalPoints = allSchools.reduce((sum, school) => sum + school.points, 0);
-
-        if (totalPoints >= 30) {
+        const allHaveSeeds = allSchools.every(school => school.seed);
+        if (allHaveSeeds) {
+            res.status(100).send('Already have seeds');
+        }
+        else if(totalPoints >= 30) {
             res.status(200).send('Good request');
-        } else {
+        }
+        else {
             res.status(400).send('Bad request: Total points less than 30');
         }
     } catch (error) {
@@ -142,30 +146,48 @@ app.get('/getStartBracket', async (req: express.Request, res: express.Response) 
 });
 
 app.get('/getSeeds', async (req: express.Request, res: express.Response) => {
+    const allSchools = await schools.find({}).toArray();
+    const seeds: { [key: string]: string } = {};
+    allSchools.forEach((school, index) => {
+        seeds[school.abbr] = school.seed;
+    });
+    res.json(seeds)
+});
+
+
+
+app.get('/getFullBracket', async (req: express.Request, res: express.Response) => {
     try {
         const allSchools = await schools.find({}).toArray();
-
-        // Separate schools into pools A and B
-        const poolA = allSchools.filter(school => school.pool === 'A');
-        const poolB = allSchools.filter(school => school.pool === 'B');
-
-        // Sort schools within each pool based on points in descending order
-        poolA.sort((a, b) => b.points - a.points);
-        poolB.sort((a, b) => b.points - a.points);
-
-        const seeds: { [key: string]: string } = {};
-
-        // Assign seeds for pool A
-        poolA.forEach((school, index) => {
-            seeds[`${index + 1}A`] = school.abbr;
+        const seeds: { [key: string]: { abbr: string, bracket: number  } } = {};
+        allSchools.forEach((school, index) => {
+            seeds[school.seed] = {abbr: school.abbr, bracket: school.bracket};
         });
 
-        // Assign seeds for pool B
-        poolB.forEach((school, index) => {
-            seeds[`${index + 1}B`] = school.abbr;
-        });
 
-        res.json(seeds);
+        const quarterFinals: { [key: string]: string } = {};
+        const semiFinals: { [key: string]: string } = {};
+        const finals: { [key: string]: string } = {};
+
+        // Assign whole bracket
+        quarterFinals['1'] = seeds['1A'].abbr;
+        quarterFinals['2'] = seeds['5A'].bracket > seeds['4B'].bracket ? seeds['5A'].abbr : (seeds['5A'].bracket < seeds['4B'].bracket ? seeds['4B'].abbr : 'undetermined');
+        quarterFinals['3'] = seeds['3A'].bracket > seeds['6B'].bracket ? seeds['3A'].abbr : (seeds['3A'].bracket < seeds['6B'].bracket ? seeds['6B'].abbr : 'undetermined');
+        quarterFinals['4'] = seeds['2B'].abbr;
+        quarterFinals['5'] = seeds['2A'].abbr;
+        quarterFinals['6'] = seeds['6A'].bracket > seeds['3B'].bracket ? seeds['6A'].abbr : (seeds['6A'].bracket < seeds['3B'].bracket ? seeds['3B'].abbr : 'undetermined');
+        quarterFinals['7'] = seeds['4A'].bracket > seeds['5B'].bracket ? seeds['4A'].abbr : (seeds['4A'].bracket < seeds['5B'].bracket ? seeds['5B'].abbr : 'undetermined');
+        quarterFinals['8'] = seeds['1B'].abbr;
+        semiFinals['1'] = quarterFinals['1'] > quarterFinals['2'] ? quarterFinals['1'] : (quarterFinals['1'] < quarterFinals['2'] ? quarterFinals['2'] : 'undetermined');
+        semiFinals['2'] = quarterFinals['3'] > quarterFinals['4'] ? quarterFinals['3'] : (quarterFinals['3'] < quarterFinals['4'] ? quarterFinals['4'] : 'undetermined');
+        semiFinals['3'] = quarterFinals['5'] > quarterFinals['6'] ? quarterFinals['5'] : (quarterFinals['5'] < quarterFinals['6'] ? quarterFinals['6'] : 'undetermined');
+        semiFinals['4'] = quarterFinals['7'] > quarterFinals['8'] ? quarterFinals['7'] : (quarterFinals['7'] < quarterFinals['8'] ? quarterFinals['8'] : 'undetermined');
+        finals['1'] = semiFinals['1'] > semiFinals['2'] ? semiFinals['1'] : (semiFinals['1'] < semiFinals['2'] ? semiFinals['2'] : 'undetermined');
+        finals['2'] = semiFinals['3'] > semiFinals['4'] ? semiFinals['3'] : (semiFinals['3'] < semiFinals['4'] ? semiFinals['4'] : 'undetermined');
+        const winner = finals['1'] > finals['2'] ? finals['1'] : (finals['1'] < finals['2'] ? finals['2'] : 'undetermined');
+
+
+        res.json({"quarterFinals" : quarterFinals, "semiFinals":semiFinals, "finals": finals, "winner": winner});
     } catch (error) {
         res.status(500).send('Internal Server Error');
     }
@@ -261,7 +283,7 @@ app.get('/getUserType', async (req: express.Request, res: express.Response) => {
 
 app.post( '/add', async (req: express.Request,res: express.Response) => {
     const matchData = req.body;
-    const schools = [
+    const schoolsDict = [
         { abbr: "SAN", name: "Sandburg" },
         { abbr: "AND", name: "Andrew" },
         { abbr: "NT", name: "New Trier" },
@@ -275,17 +297,10 @@ app.post( '/add', async (req: express.Request,res: express.Response) => {
         { abbr: "WY", name: "Whitney Young" },
         { abbr: "YK", name: "York" }
     ];
-    // determine if doubles or singles
-    if(matchData.PlayerA1 && matchData.PlayerA2 && matchData.PlayerB1 && matchData.PlayerB2){
-        matchData.MatchType = "Doubles";
-    }
-    else{
-        matchData.MatchType = "Singles";
-    }
 
     // determine school
     const findSchoolName = (code: string) => {
-        const school = schools.find(s => code.startsWith(s.abbr));
+        const school = schoolsDict.find(s => code.startsWith(s.abbr));
         return school ? school.abbr : "Unknown School";
     };
 
@@ -312,8 +327,61 @@ app.post( '/add', async (req: express.Request,res: express.Response) => {
     matchData.owner = req.session.user;
     const result = await collection.insertOne( matchData )
     matchData._id =result.insertedId
+
+    const school = await schools.findOne({abbr: winner});
+    if(school){
+        const wins = await collection.countDocuments({winner: winner, round: matchData.round});
+        if(matchData.MatchType === "Round Robin") {
+            if (wins % 4 === 0) {
+                await schools.updateOne({abbr: winner}, {$inc: {points: 1}});
+            }
+        }
+        else{
+            if( wins % 3 === 0){
+                await schools.updateOne({abbr: winner}, {$inc: {bracket: 1}});
+            }
+        }
+    }
+
+
     res.json( matchData )
 })
+
+app.post('/makeSeeds', async (req: express.Request, res: express.Response) => {
+    try {
+        const allSchools = await schools.find({}).toArray();
+
+        // Separate schools into pools A and B
+        const poolA = allSchools.filter(school => school.pool === 'A');
+        const poolB = allSchools.filter(school => school.pool === 'B');
+
+        // Sort schools within each pool based on points in descending order
+        poolA.sort((a, b) => b.points - a.points);
+        poolB.sort((a, b) => b.points - a.points);
+
+        const seeds: { [key: string]: string } = {};
+
+        // Assign seeds for pool A
+        for (let i = 0; i < poolA.length; i++) {
+            const school = poolA[i];
+            const seed = `${i + 1}A`;
+            seeds[seed] = school.abbr;
+            await schools.updateOne({ abbr: school.abbr }, { $set: { seed: seed } });
+        }
+
+        // Assign seeds for pool B
+        for (let i = 0; i < poolB.length; i++) {
+            const school = poolB[i];
+            const seed = `${i + 1}B`;
+            seeds[seed] = school.abbr;
+            await schools.updateOne({ abbr: school.abbr }, { $set: { seed: seed } });
+        }
+
+        res.json(seeds);
+    } catch (error) {
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 // assumes req.body takes form { _id:5d91fb30f3f81b282d7be0dd } etc.
 app.delete( '/remove', async (req: express.Request,res: express.Response) => {
