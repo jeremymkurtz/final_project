@@ -4,23 +4,21 @@ function RosterTable({schoolData}) {
 
     const styleTable = "border-2 border-[rgb(33,68,121)] text-center w-fit py-1 px-8";
 
-    const getPlayersTable = () => {
-
-        const playersTable = [];
-
-        for(let i = 0; i < schoolData.players.length; i++) {
-            playersTable[i] = (
-                <tr key={i + 1} className={i % 2 == 0 ? "bg-[rgb(222,235,255)]" : ""}>
-                    <td className={styleTable}>{schoolData.players[i].abbr}</td>
-                    <td className={styleTable}>{schoolData.players[i].fName + " " + schoolData.players[i].lName}</td>
-                </tr>
-            )
-        }
-        return playersTable;
+    const tableRow = (rowNum) => {
+        return (
+            <tr key={rowNum} className={rowNum % 2 == 1 ? "bg-[rgb(222,235,255)]" : ""}>
+                <td className={styleTable}>{schoolData.players[rowNum].abbr}</td>
+                <td className={styleTable}>{schoolData.players[rowNum].fName + " " + schoolData.players[rowNum].lName}</td>
+            </tr>
+        )
     }
 
     const [playersTable, setPlayersTable] = useState<JSX.Element[]>(() => {
-        return getPlayersTable()
+        const init = [];
+        for (let i = 0; i < schoolData.players.length; i++) {
+            init[i] = tableRow(i + 1);
+        }
+        return init;
     });
 
     return (
