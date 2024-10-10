@@ -147,18 +147,18 @@ function RosterForm({setRosterPage, coach}) {
                     </div>
                     {playersHTML}
                     <button id="submitRoster" type="submit"
-                            className={"bg-[rgb(33,68,121)] text-white col-[2] w-fit h-fit p-2 row-[8/10] flex justify-self-end self-end rounded-md"}
+                            className={"bg-[rgb(33,68,121)] text-white col-[2] w-fit h-fit p-2 row-[8/10] flex justify-self-end self-end rounded-lg font-bold text-lg"}
                             onClick={submitRoster}>Submit<br/>Roster
                     </button>
                 </div>
                 <div className="text-white flex ml-[88px] mt-2">
                     <button id="removePlayer" type="button"
-                            className="bg-[rgb(102,29,29)] w-40 ml-2 py-1 rounded-md"
+                            className="bg-[rgb(102,29,29)] w-40 ml-2 py-1 rounded-lg font-bold text-lg"
                             style={{display: "none"}}
                             onClick={() => {addRemovePlayerHTML("remove")}}>- Remove Player
                     </button>
                     <button id="addPlayer" type="button"
-                            className="bg-[rgb(30,104,55)] w-[328px] ml-2 py-1 rounded-md"
+                            className="bg-[rgb(30,104,55)] w-[328px] ml-2 py-1 rounded-lg font-bold text-lg"
                             onClick={() => {addRemovePlayerHTML("add")}}>+ Add Player
                     </button>
                 </div><br/>

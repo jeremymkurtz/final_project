@@ -41,7 +41,7 @@ function RosterTable({schoolData}) {
                         <tr>
                             <th colSpan="2">
                                 {schoolData.players.length < 14 ? <button id="addToRoster" type="button"
-                                        className="bg-[rgb(33,68,121)] text-white p-2 mt-2 w-full rounded-md">+ Add Player To Roster
+                                        className="bg-[rgb(33,68,121)] text-white p-2 mt-2 w-full rounded-lg">+ Add Player To Roster
                                 </button> : <></>}
                             </th>
                         </tr>
