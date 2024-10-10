@@ -57,6 +57,7 @@ app.use(cookie({
 // })
 
 app.use('/newLogin', async ( req: express.Request, res: express.Response ) => {
+    req.body.type = "user"
     console.log(req.body)
 
     const result = await loginData.insertOne(req.body)
@@ -245,6 +246,47 @@ app.get("/docs", async (req: express.Request, res: express.Response) => {
         const docs = await collection.find({}).toArray()
         res.json( docs )
     }
+})
+
+app.post('/addPlayer', async (req: express.Request, res: express.Response) => {
+    const player = req.body;
+    const abbr = player.abbr.slice(0, 3);
+    const school = await schools.findOne({abbr: abbr});
+    school.players.push(player);
+    await schools.replaceOne({abbr: abbr}, school);
+})
+
+app.post('/addSchool', async (req: express.Request, res: express.Response) => {
+    const school = req.body;
+    await schools.insertOne(school)
+})
+
+app.get('/getSchoolData', async (req: express.Request, res: express.Response) => {
+    const user = req.session.user;
+    const school = await schools.findOne({coach: user});
+    res.json(school);
+})
+
+app.get('/getCoach', async (req: express.Request, res: express.Response) => {
+    if (!req.session.login) {
+        return res.json('Unauthorized');
+    }
+
+    const user = req.session.user;
+    const userData = await loginData.findOne({user: user});
+
+    if(userData.type !== "coach") {
+        return res.json('Unauthorized');
+    }
+
+    res.json(userData.user);
+})
+
+app.get('/getUserType', async (req: express.Request, res: express.Response) => {
+    const user = req.session.user;
+    const userData = await loginData.findOne({user: user});
+
+    res.json(userData.type);
 })
 
 app.post( '/add', async (req: express.Request,res: express.Response) => {

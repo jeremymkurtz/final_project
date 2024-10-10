@@ -1,11 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, {useLayoutEffect, useEffect, useState} from 'react';
 import closeIcon from '../assets/close-icon.png';
 import logo from '../assets/logo.png';
 import menuIcon from '../assets/menu-icon.png';
 
 const Header: React.FC = () => {
-    const [ isMenuOpen, setIsMenuOpen ] = useState(false);
-    const [ isLoggedIn, setIsLoggedIn ] = useState(localStorage.getItem('user'));
+
+    const [userType, setUserType] = useState("user");
+
+    const getUserType = async () => {
+        const response = await fetch("/getUserType", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+        });
+        const data = await response.json();
+        setUserType(data);
+    }
+
+    useLayoutEffect(() => {
+        getUserType();
+    }, []);
+
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('user'));
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -55,6 +71,9 @@ const Header: React.FC = () => {
                 <a href="/" className="p-2 text-black hover:text-blue-600">
                     Home
                 </a>
+                {userType === "coach" ? <a href="/roster" className="p-2 text-black hover:text-blue-600">
+                    Roster
+                </a> : <></>}
                 <a href="/game-submission" className="p-2 text-black hover:text-blue-600">
                     Game Submission
                 </a>
