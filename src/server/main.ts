@@ -5,7 +5,6 @@ import ViteExpress from 'vite-express'
 import cookie from 'cookie-session'
 import { MongoClient, ObjectId, Collection } from 'mongodb'
 import { lookupPlayerFromAbbr } from './utils.js'
-import { School } from '../types/school.js'
 
 const app = express()
 
@@ -283,6 +282,10 @@ app.get('/getCoach', async (req: express.Request, res: express.Response) => {
 })
 
 app.get('/getUserType', async (req: express.Request, res: express.Response) => {
+    if (!req.session.login) {
+        return res.json('user');
+    }
+
     const user = req.session.user;
     const userData = await loginData.findOne({user: user});
 
