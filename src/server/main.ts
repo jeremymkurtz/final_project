@@ -297,7 +297,7 @@ app.post( '/add', async (req: express.Request,res: express.Response) => {
     const school = await schools.findOne({abbr: winner});
     if(school){
         const wins = await collection.countDocuments({winner: winner, round: matchData.round});
-        if(matchData.matchType === "Round Robin") {
+        if(matchData.MatchType === "Round Robin") {
             if (wins % 4 === 0) {
                 await schools.updateOne({abbr: winner}, {$inc: {points: 1}});
             }
