@@ -22,15 +22,15 @@ Prior to the tournament, **HENRY?**
 3. An outline of the technologies you used and how you used them.
 - We used tailwind to design our application. We chose tailwind instead of another CSS framework for its flexibility and accessibility.
 - We used React for our front-end instead of angular due to our team's prior experience with React within Software Engineering. We used React's useState to store data on the page along with useEffect to keep the data updated.
-- We chose mongoDB for our database due to its flexibility, having 3 total collections: users(login-info), teams(schools), and matches.
+- We chose MongoDB for our database due to its flexibility, having 3 total collections: users(login-info), teams(schools), and matches.
 - We used Node.js and express for our server. We used express to create our server and handle requests.
 4. What challenges you faced in completing the project.
 - One challenge we faced was the implementation of the bracket page as it is only used after the round robin stage. We had to figure out how to update the bracket page after the round robin stage was over. 
 5. What each group member was responsible for designing / developing.
 - Jeremy was responsible for the game submission page and the bracket page. Jeremy additionally was responsible for the backend/frontend logic of round robin and bracket page.
 - ChenXi was responsible for the implementation fo the round robin page.
-- **Alden** was responsible for the backend implementation of looking up players and **...**
-6. A link to your project video.
+- **Alden** was responsible for the backend implementation of looking up players and worked on conditional rendering in the header, displaying different information depending on whether the user is logged in or not.
+- A link to your project video.
 [Video](https://www.youtube.com/)
 
 Think of 1,3, and 4 in particular in a similar vein to the design / tech achievements for A1—A4… make a case for why what you did was challenging and why your implementation deserves a grade of 100%.
