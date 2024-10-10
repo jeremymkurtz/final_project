@@ -11,7 +11,7 @@ The README for your second pull request should contain:
 ## General description
 #### A brief description of what you created, and a link to the project itself (two paragraphs of text) 
 
-The Featherfest application target users are players and administrators of the fetharefest tournament. As players submit to the web application other parts of the website will be updated including: round robin page, bracket page and dashboard page. 
+The Featherfest application target users are players and administrators of the fetharefest tournament. See this [spreadsheet](https://docs.google.com/spreadsheets/d/1xY_97RSohWpRhs2Pl82CX-zxPfdYPViR-zOnRO4sN2Q/edit?gid=737066836#gid=737066836) as how the model of the torunamnet is played. As players submit to the web application other parts of the website will be updated including: round robin page, bracket page and dashboard page. 
 The round robin page, displays the points won during round robin stage in each team's respective pools. Later on deciding their seeding based on performance. 
 The bracket page, after the round robin stage is over(total round robin points across all teams is 30) the bracket will be updated with teams being seeded. Players then can submit for elimination or bracket stage. Lastly the dashboard page, ... **SKYLER?**
 
@@ -29,7 +29,7 @@ Prior to the tournament, **HENRY?**
 5. What each group member was responsible for designing / developing.
 - Jeremy was responsible for the game submission page and the bracket page. Jeremy additionally was responsible for the backend/frontend logic of round robin and bracket page.
 - ChenXi was responsible for the implementation fo the round robin page.
-- Alden was responsible for the backend implementation of looking up players and **...**
+- **Alden** was responsible for the backend implementation of looking up players and **...**
 6. A link to your project video.
 [Video](https://www.youtube.com/)
 
