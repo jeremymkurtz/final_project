@@ -75,7 +75,7 @@ function RosterTable({schoolData}) {
     return (
         <div className="flex justify-center">
             <div><br/>
-                <h1 className="text-center text-4xl">Here is your current roster<br/>Coach <span className="font-bold">{schoolData.coach}</span>.</h1><br/>
+                <h1 className="text-center text-4xl">Here is your current roster,<br/>Coach <span className="font-bold">{schoolData.coach}</span>.</h1><br/>
                 <p className="text-center text-3xl">Your pool score is <span className="font-bold">{schoolData.points}</span>.</p><br/>
                 <div className="flex justify-center">
                     <table className="text-2xl">
